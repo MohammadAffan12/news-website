@@ -2,13 +2,13 @@ import { motion, useScroll, useTransform } from 'framer-motion'
 import { useRef } from 'react'
 import useMouseParallax from '../hooks/useMouseParallax'
 
-/* ── Easing & spring presets ─────────────────────────── */
+/* ── Easing ──────────────────────────────────────────── */
 const ease = [0.35, 0, 0, 1]
 
-/* ── Entrance variants ───────────────────────────────── */
+/* ── Animation helpers ───────────────────────────────── */
 const fadeSlideUp = (delay = 0) => ({
   initial: { opacity: 0, y: 50 },
-  animate: { opacity: 1, y: 0, transition: { duration: 0.8, ease, delay } },
+  animate: { opacity: 1, y: 0, transition: { duration: 0.9, ease, delay } },
 })
 
 const wordVariants = {
@@ -16,103 +16,67 @@ const wordVariants = {
   animate: (i) => ({
     opacity: 1,
     y: 0,
-    transition: { duration: 0.7, ease, delay: 0.3 + i * 0.08 },
+    transition: { duration: 0.7, ease, delay: 0.35 + i * 0.09 },
   }),
-}
-
-/* ── Card stagger container + child ──────────────────── */
-const cardContainer = {
-  initial: {},
-  animate: {
-    transition: { staggerChildren: 0.15, delayChildren: 0.9 },
-  },
-}
-
-const cardChild = {
-  initial: { opacity: 0, y: 80 },
-  animate: { opacity: 1, y: 0, transition: { duration: 0.9, ease } },
-}
-
-/* ── Floating card component (reusable) ──────────────── */
-function FloatingCard({
-  children,
-  className = '',
-  parallax,         // { x, y } motion values
-  depthFactor = 1,  // multiplier for parallax layer
-}) {
-  return (
-    <motion.div
-      className={className}
-      variants={cardChild}
-      style={{
-        x: parallax.x === 0 ? 0 : parallax.x,
-        y: parallax.y === 0 ? 0 : parallax.y,
-        willChange: 'transform',
-      }}
-      whileHover={{ y: -6, transition: { duration: 0.35, ease } }}
-    >
-      {children}
-    </motion.div>
-  )
 }
 
 /* ── Hero ─────────────────────────────────────────────── */
 export default function Hero() {
   const sectionRef = useRef(null)
 
-  // Mouse-based parallax (auto-disabled on touch devices)
-  const bgParallax   = useMouseParallax(8)   // slowest layer
-  const textParallax = useMouseParallax(14)   // mid layer
-  const cardParallax = {
-    slow:   useMouseParallax(10),
-    center: useMouseParallax(20),   // deepest movement → feels closest
-    fast:   useMouseParallax(15),
-  }
+  // Mouse parallax – different depths for layered feel
+  const bgParallax   = useMouseParallax(6)    // slowest – background
+  const textParallax = useMouseParallax(12)   // mid – headline
+  const imgParallax  = useMouseParallax(18)   // faster – person image
+  const uiParallax   = useMouseParallax(26)   // fastest – floating UI cards
 
-  // Scroll-based parallax (content shifts gently on scroll)
+  // Scroll-based parallax
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ['start start', 'end start'],
   })
-  const bgY = useTransform(scrollYProgress, [0, 1], ['0%', '25%'])
+  const bgY    = useTransform(scrollYProgress, [0, 1], ['0%', '20%'])
+  const imgY   = useTransform(scrollYProgress, [0, 1], ['0%', '12%'])
 
   const headline = 'Change the way you read news'
 
   return (
     <section
       ref={sectionRef}
-      className="relative min-h-screen flex flex-col justify-center overflow-hidden"
+      className="relative min-h-screen overflow-hidden"
       style={{ backgroundColor: '#4B8BCB' }}
     >
-      {/* Subtle scroll-parallax background layer */}
+      {/* ── Background: sky photo + gradient ─────────── */}
       <motion.div
         className="absolute inset-0 z-0"
-        style={{
-          y: bgY,
-          x: bgParallax.x,
-          willChange: 'transform',
-        }}
+        style={{ y: bgY, x: bgParallax.x, willChange: 'transform' }}
       >
-        <div className="absolute inset-0 bg-gradient-to-b from-[#4B8BCB] via-[#4B8BCB] to-[#3d7ab8]" />
+        <img
+          src="https://images.unsplash.com/photo-1517483000871-1dbf64a6e1c6?w=1920&q=80"
+          alt=""
+          className="w-full h-full object-cover scale-110"
+        />
+        <div className="absolute inset-0 bg-[#4B8BCB]/60" />
       </motion.div>
 
-      {/* Content */}
-      <div className="relative z-10 max-w-[1200px] mx-auto px-6 pt-[140px] pb-[60px] w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* ── Left: Text ──────────────────────────── */}
+      {/* ── Main content area ────────────────────────── */}
+      <div className="relative z-10 max-w-[1400px] mx-auto px-6 lg:px-10 w-full pt-[130px] pb-[50px]">
+        <div className="relative flex items-end lg:items-center min-h-[85vh]">
+
+          {/* ── Left: Text (overlaps image on desktop) ─ */}
           <motion.div
+            className="relative z-20 max-w-[600px] pb-12 lg:pb-0"
             style={{
               x: textParallax.x,
               y: textParallax.y,
               willChange: 'transform',
             }}
           >
-            {/* Headline — word-by-word stagger */}
-            <h1 className="text-[48px] sm:text-[56px] md:text-[72px] lg:text-[80px] font-medium text-white leading-[1] tracking-[-0.02em] mb-6">
+            <h1 className="text-[52px] sm:text-[64px] md:text-[80px] lg:text-[92px] font-medium text-white leading-[0.95] tracking-[-0.03em] mb-7">
               {headline.split(' ').map((word, i) => (
                 <motion.span
                   key={i}
-                  className="inline-block mr-[0.22em]"
+                  className="inline-block mr-[0.24em]"
                   variants={wordVariants}
                   initial="initial"
                   animate="animate"
@@ -123,19 +87,19 @@ export default function Hero() {
               ))}
             </h1>
 
-            {/* Subtitle */}
             <motion.p
-              className="text-[17px] md:text-[19px] text-white/80 leading-[1.5] max-w-[420px] mb-8"
-              {...fadeSlideUp(0.7)}
+              className="text-[17px] md:text-[19px] text-white/85 leading-[1.55] max-w-[440px] mb-9"
+              {...fadeSlideUp(0.85)}
             >
-              From breaking stories to deep analysis — stay informed with trusted journalism, delivered in real-time. Start reading for free.
+              From breaking stories to deep analysis — stay informed
+              with trusted journalism, delivered in real-time.
+              Start reading for free.
             </motion.p>
 
-            {/* CTA */}
-            <motion.div {...fadeSlideUp(0.9)}>
+            <motion.div {...fadeSlideUp(1.05)}>
               <motion.a
                 href="#latest"
-                className="inline-flex items-center px-7 py-3.5 bg-[#191C1F] text-white text-[16px] font-medium rounded-full hover:bg-[#2d3136] transition-colors duration-500"
+                className="inline-flex items-center px-8 py-4 bg-[#191C1F] text-white text-[16px] font-medium rounded-full hover:bg-[#2d3136] transition-colors duration-500"
                 style={{ transitionTimingFunction: 'cubic-bezier(0.35, 0, 0, 1)' }}
                 whileHover={{ scale: 1.04 }}
                 whileTap={{ scale: 0.97 }}
@@ -145,102 +109,140 @@ export default function Hero() {
             </motion.div>
           </motion.div>
 
-          {/* ── Right: Parallax cards stack ──────────── */}
+          {/* ── Center-right: Person image + phone UI ── */}
           <motion.div
-            className="hidden lg:flex gap-4 justify-end"
-            variants={cardContainer}
-            initial="initial"
-            animate="animate"
+            className="hidden lg:block absolute right-0 top-1/2"
+            style={{
+              x: imgParallax.x,
+              y: imgY,
+              translateY: '-50%',
+              willChange: 'transform',
+            }}
           >
-            {/* Card 1 — slow layer */}
-            <FloatingCard
-              className="w-[200px] bg-white rounded-[20px] overflow-hidden shadow-lg shadow-black/10"
-              parallax={cardParallax.slow}
-              depthFactor={0.6}
+            {/* Zoom-out entrance: starts 1.18 → 1.0 (Revolut effect) */}
+            <motion.div
+              className="relative w-[460px] xl:w-[520px] h-[620px] xl:h-[700px]"
+              initial={{ scale: 1.18, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 2.4, ease, delay: 0.2 }}
             >
-              <div className="h-[200px] overflow-hidden">
-                <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=400&q=80" alt="" className="w-full h-full object-cover" loading="lazy" />
+              {/* Person photo */}
+              <div className="absolute inset-0 rounded-[4px] overflow-hidden">
+                <img
+                  src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=900&q=85"
+                  alt="Person reading news"
+                  className="w-full h-full object-cover object-top"
+                />
               </div>
-              <div className="p-4">
-                <p className="text-[12px] text-[#8D969E]">Technology</p>
-                <p className="text-[14px] font-medium text-[#191C1F] mt-1 leading-tight">AI reshapes global newsrooms</p>
-              </div>
-              <div className="mx-4 mb-4 px-3 py-2.5 bg-[#F7F7F7] rounded-xl flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <div className="w-6 h-6 rounded-full bg-[#4B8BCB] flex items-center justify-center">
-                    <span className="text-white text-[10px]">🔔</span>
-                  </div>
-                  <div>
-                    <p className="text-[11px] font-medium text-[#191C1F]">Breaking</p>
-                    <p className="text-[10px] text-[#8D969E]">Just now</p>
-                  </div>
-                </div>
-                <p className="text-[11px] font-semibold text-[#191C1F]">Live</p>
-              </div>
-            </FloatingCard>
 
-            {/* Card 2 — center / deepest parallax + zoom-in scale */}
-            <FloatingCard
-              className="w-[220px] bg-white rounded-[20px] overflow-hidden shadow-lg shadow-black/10 -mt-4"
-              parallax={cardParallax.center}
-              depthFactor={1.4}
-            >
+              {/* Phone frame overlay (subtle white border like Revolut) */}
               <motion.div
-                className="h-[240px] overflow-hidden bg-[#4B8BCB] relative"
-                initial={{ scale: 1 }}
-                animate={{ scale: 1.08 }}
-                transition={{ duration: 2.5, ease, delay: 1.2 }}
+                className="absolute inset-[8%] rounded-[16px] border-[1.5px] border-white/20"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 1.2, duration: 1, ease }}
+              />
+
+              {/* ── Floating UI: Account label + balance ── */}
+              <motion.div
+                className="absolute top-[40%] left-1/2 text-center"
+                style={{
+                  translateX: '-50%',
+                  x: uiParallax.x,
+                  y: uiParallax.y,
+                  willChange: 'transform',
+                }}
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 1.5, duration: 0.9, ease }}
               >
-                <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400&q=80" alt="" className="w-full h-full object-cover opacity-80" loading="lazy" />
-                <div className="absolute inset-0 flex flex-col items-center justify-center text-white">
-                  <p className="text-[12px] opacity-70">Breaking</p>
-                  <p className="text-[28px] font-semibold mt-1">24/7</p>
-                  <p className="text-[13px] mt-1 px-4 py-1 bg-white/20 rounded-full">Coverage</p>
+                <p className="text-white/70 text-[14px] font-medium">Breaking</p>
+                <p className="text-white text-[48px] xl:text-[54px] font-semibold leading-none mt-1 drop-shadow-lg">
+                  24/7
+                </p>
+                <motion.div
+                  className="mt-3 px-5 py-1.5 bg-white rounded-full text-[13px] font-medium text-[#191C1F] inline-block shadow-md"
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 1.9, duration: 0.6, ease }}
+                >
+                  Live Feed
+                </motion.div>
+              </motion.div>
+
+              {/* ── Floating UI: Transaction-style notification ── */}
+              <motion.div
+                className="absolute bottom-[7%] left-1/2 w-[290px] bg-white rounded-2xl px-4 py-3 shadow-xl shadow-black/15"
+                style={{
+                  translateX: '-50%',
+                  x: uiParallax.x,
+                  willChange: 'transform',
+                }}
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 2.0, duration: 0.9, ease }}
+              >
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-full bg-[#4B8BCB]/12 flex items-center justify-center">
+                      <svg className="w-5 h-5 text-[#4B8BCB]" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6z" />
+                        <path d="M10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <p className="text-[14px] font-semibold text-[#191C1F]">Breaking Alert</p>
+                      <p className="text-[12px] text-[#8D969E]">Today, 11:28</p>
+                    </div>
+                  </div>
+                  <span className="text-[13px] font-bold text-[#191C1F]">Live</span>
                 </div>
               </motion.div>
-              <div className="mx-4 my-4 px-3 py-2.5 bg-[#F7F7F7] rounded-xl flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <div className="w-6 h-6 rounded-full bg-[#22C55E] flex items-center justify-center">
-                    <span className="text-white text-[10px]">✓</span>
-                  </div>
-                  <div>
-                    <p className="text-[11px] font-medium text-[#191C1F]">Subscribed</p>
-                    <p className="text-[10px] text-[#8D969E]">Today, 08:00</p>
-                  </div>
-                </div>
-                <p className="text-[11px] font-semibold text-[#22C55E]">Active</p>
-              </div>
-            </FloatingCard>
-
-            {/* Card 3 — fast layer */}
-            <FloatingCard
-              className="w-[200px] bg-white rounded-[20px] overflow-hidden shadow-lg shadow-black/10 mt-4"
-              parallax={cardParallax.fast}
-              depthFactor={1}
-            >
-              <div className="h-[200px] overflow-hidden">
-                <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=400&q=80" alt="" className="w-full h-full object-cover" loading="lazy" />
-              </div>
-              <div className="p-4">
-                <p className="text-[12px] text-[#8D969E]">Science</p>
-                <p className="text-[14px] font-medium text-[#191C1F] mt-1 leading-tight">Deep space signals decoded</p>
-              </div>
-              <div className="mx-4 mb-4 px-3 py-2.5 bg-[#F7F7F7] rounded-xl flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <div className="w-6 h-6 rounded-full bg-[#6366F1] flex items-center justify-center">
-                    <span className="text-white text-[10px]">🔬</span>
-                  </div>
-                  <div>
-                    <p className="text-[11px] font-medium text-[#191C1F]">Trending</p>
-                    <p className="text-[10px] text-[#8D969E]">2 min ago</p>
-                  </div>
-                </div>
-                <p className="text-[11px] font-semibold text-[#6366F1]">+2.4K</p>
-              </div>
-            </FloatingCard>
+            </motion.div>
           </motion.div>
+
         </div>
       </div>
+
+      {/* ── Mobile: person image (below text, simpler layout) ── */}
+      <motion.div
+        className="lg:hidden relative z-10 px-6 pb-10"
+        initial={{ opacity: 0, scale: 1.1 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 1.8, ease, delay: 0.5 }}
+      >
+        <div className="relative w-full max-w-[360px] mx-auto aspect-[3/4] rounded-[16px] overflow-hidden">
+          <img
+            src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=600&q=80"
+            alt="Person reading news"
+            className="w-full h-full object-cover object-top"
+          />
+          {/* Overlay UI */}
+          <div className="absolute inset-[6%] rounded-[12px] border border-white/20" />
+          <div className="absolute top-[38%] left-1/2 -translate-x-1/2 text-center">
+            <p className="text-white/70 text-[13px]">Breaking</p>
+            <p className="text-white text-[40px] font-semibold leading-none mt-1 drop-shadow-lg">24/7</p>
+            <div className="mt-2 px-4 py-1 bg-white rounded-full text-[12px] font-medium text-[#191C1F] inline-block">
+              Live Feed
+            </div>
+          </div>
+          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 w-[250px] bg-white rounded-xl px-3 py-2.5 shadow-lg flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 rounded-full bg-[#4B8BCB]/12 flex items-center justify-center">
+                <svg className="w-4 h-4 text-[#4B8BCB]" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6z" />
+                  <path d="M10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z" />
+                </svg>
+              </div>
+              <div>
+                <p className="text-[12px] font-semibold text-[#191C1F]">Breaking Alert</p>
+                <p className="text-[10px] text-[#8D969E]">Today, 11:28</p>
+              </div>
+            </div>
+            <span className="text-[11px] font-bold text-[#191C1F]">Live</span>
+          </div>
+        </div>
+      </motion.div>
     </section>
   )
 }
