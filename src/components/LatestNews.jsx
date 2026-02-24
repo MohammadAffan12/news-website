@@ -28,10 +28,15 @@ function NewsCard({ article, index, large }) {
           className="w-full h-full object-cover group-hover:scale-105"
           style={{ transitionTimingFunction: 'cubic-bezier(0.35, 0, 0, 1)', transitionDuration: '0.8s' }}
         />
+        {/* Category badge overlay */}
+        <div className="absolute top-4 left-4">
+          <span className="px-3 py-1 bg-white/90 backdrop-blur-sm rounded-full text-[12px] font-semibold text-[#191C1F]">
+            {article.category}
+          </span>
+        </div>
       </div>
       <div className="mt-4">
-        <span className="text-[13px] text-[#8D969E] font-medium">{article.category}</span>
-        <h3 className={`font-medium text-[#191C1F] leading-[1.25] mt-1.5 group-hover:text-[#4B8BCB] transition-colors duration-300 ${
+        <h3 className={`font-medium text-[#191C1F] leading-[1.25] group-hover:text-[#4B8BCB] transition-colors duration-300 ${
           large ? 'text-[24px] md:text-[28px]' : 'text-[18px]'
         }`}>
           {article.title}
@@ -51,6 +56,7 @@ function NewsCard({ article, index, large }) {
 
 export default function LatestNews() {
   const titleRef = useRef(null)
+  const seeAllRef = useRef(null)
 
   useEffect(() => {
     gsap.fromTo(titleRef.current,
@@ -58,22 +64,44 @@ export default function LatestNews() {
       { y: 0, opacity: 1, duration: 0.8, ease: 'power2.out',
         scrollTrigger: { trigger: titleRef.current, start: 'top 85%' } }
     )
+    gsap.fromTo(seeAllRef.current,
+      { y: 20, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.6, delay: 0.2, ease: 'power2.out',
+        scrollTrigger: { trigger: titleRef.current, start: 'top 85%' } }
+    )
   }, [])
 
   return (
-    <section id="latest" className="py-20 md:py-28 bg-white">
+    <section id="latest" className="py-24 md:py-32 bg-white">
       <div className="max-w-[1200px] mx-auto px-6">
-        {/* Header - Revolut style */}
-        <div ref={titleRef} className="mb-12">
-          <h2 className="text-[36px] md:text-[48px] font-medium text-[#191C1F] leading-[1.1] tracking-[-0.02em]">
-            Your daily briefing,<br />reimagined
-          </h2>
+        {/* Header */}
+        <div className="flex items-end justify-between mb-12">
+          <div ref={titleRef}>
+            <h2 className="text-[36px] md:text-[52px] font-medium text-[#191C1F] leading-[1.08] tracking-[-0.025em]">
+              Your daily briefing,<br />reimagined
+            </h2>
+          </div>
+          <a ref={seeAllRef} href="#"
+            className="hidden md:inline-flex items-center gap-2 px-5 py-2.5 text-[15px] font-medium text-[#191C1F] rounded-full border border-[#E8E8E8] hover:bg-[#F7F7F7] transition-all duration-300"
+            style={{ transitionTimingFunction: 'cubic-bezier(0.35, 0, 0, 1)' }}>
+            See all stories
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </a>
         </div>
 
-        {/* Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {NEWS_ARTICLES.map((a, i) => (
+        {/* Top row: featured + 2 side articles */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+          {NEWS_ARTICLES.slice(0, 3).map((a, i) => (
             <NewsCard key={a.id} article={a} index={i} large={i === 0} />
+          ))}
+        </div>
+
+        {/* Bottom row: 3 smaller articles */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          {NEWS_ARTICLES.slice(3, 6).map((a, i) => (
+            <NewsCard key={a.id} article={a} index={i + 3} />
           ))}
         </div>
       </div>

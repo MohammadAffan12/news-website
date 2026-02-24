@@ -8,6 +8,7 @@ import FeaturesSection from './components/FeaturesSection'
 import LatestNews from './components/LatestNews'
 import FeaturedVideo from './components/FeaturedVideo'
 import TrustSection from './components/TrustSection'
+import AppPromo from './components/AppPromo'
 import ImageGallery from './components/ImageGallery'
 import CategorySection from './components/CategorySection'
 import Newsletter from './components/Newsletter'
@@ -17,7 +18,6 @@ gsap.registerPlugin(ScrollTrigger)
 
 export default function App() {
   useEffect(() => {
-    // Refresh after all images + layout settle
     const timer = setTimeout(() => ScrollTrigger.refresh(), 500)
     return () => { clearTimeout(timer); ScrollTrigger.getAll().forEach(t => t.kill()) }
   }, [])
@@ -31,6 +31,7 @@ export default function App() {
       <LatestNews />
       <FeaturedVideo />
       <TrustSection />
+      <AppPromo />
       <ImageGallery />
       <CategorySection />
       <Newsletter />

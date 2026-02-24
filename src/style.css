@@ -20,6 +20,12 @@ body {
   color: #191C1F;
 }
 
+/* Selection */
+::selection {
+  background: #4B8BCB;
+  color: #fff;
+}
+
 /* Revolut easing: cubic-bezier(0.35, 0, 0, 1) */
 .r-ease {
   transition-timing-function: cubic-bezier(0.35, 0, 0, 1);
@@ -60,5 +66,18 @@ img {
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+/* Smooth focus rings */
+input:focus, button:focus-visible, a:focus-visible {
+  outline: 2px solid #4B8BCB;
+  outline-offset: 2px;
+}
+
+/* Prevent layout shift from images */
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
 }
 
