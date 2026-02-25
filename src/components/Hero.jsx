@@ -211,11 +211,11 @@ export default function Hero() {
          ═══════════════════════════════════════════════ */}
       <div
         ref={heroImageRef}
-        className="relative lg:absolute z-[10] rounded-[24px] overflow-hidden shadow-2xl mx-6 lg:mx-0 mt-10 lg:mt-0 h-[400px] lg:h-[580px] lg:w-[420px] lg:right-[max(2rem,calc((100vw-1200px)/2+2rem))] lg:top-[calc(50%-290px)]"
+        className="relative lg:absolute z-[10] rounded-[24px] overflow-hidden shadow-2xl mx-6 lg:mx-0 mt-10 lg:mt-0 h-[300px] lg:h-[400px] lg:w-[544px] lg:right-[max(2rem,calc((100vw-1200px)/2+2rem))] lg:top-[calc(50%-200px)]"
       >
         <img
-          src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800&q=90"
-          alt="Portrait"
+          src="https://images.unsplash.com/photo-1526470608268-f674ce90ebd4?w=1200&q=90"
+          alt="Breaking News USA"
           className="w-full h-full object-cover"
         />
       </div>
@@ -227,34 +227,34 @@ export default function Hero() {
         ref={gridRef}
         className="relative lg:absolute inset-0 z-[5] flex items-center justify-center pt-16 lg:pt-0 pb-20 lg:pb-0 bg-white"
       >
-        <div className="w-full max-w-[1200px] mx-auto px-6 lg:px-10 grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="w-full max-w-[1200px] mx-auto px-6 lg:px-10 grid grid-cols-1 lg:grid-cols-4 gap-8">
           {/* Left Card */}
-          <div className="bg-[#F7F7F7] rounded-[24px] overflow-hidden h-[580px] flex flex-col transition-transform hover:scale-[1.02] duration-300">
+          <div className="bg-[#F7F7F7] rounded-[24px] overflow-hidden h-[400px] flex flex-col transition-transform hover:scale-[1.02] duration-300 lg:col-span-1">
             <div className="h-1/2 overflow-hidden">
-              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80" className="w-full h-full object-cover" alt="News" />
+              <img src="https://images.unsplash.com/photo-1612550761236-e813928f7271?w=600&q=80" className="w-full h-full object-cover" alt="US Capitol" />
             </div>
-            <div className="p-8 flex-1 flex flex-col justify-center">
-              <span className="text-[13px] font-bold text-[#191C1F] uppercase tracking-wider mb-3">World</span>
-              <h3 className="text-[24px] font-semibold text-[#191C1F] leading-tight mb-4">Global markets rally as tech stocks surge</h3>
-              <p className="text-[16px] text-[#8D969E] leading-relaxed">Investors see renewed confidence in the sector following positive earnings reports.</p>
+            <div className="p-6 flex-1 flex flex-col justify-center">
+              <span className="text-[12px] font-bold text-[#191C1F] uppercase tracking-wider mb-2">Politics</span>
+              <h3 className="text-[20px] font-semibold text-[#191C1F] leading-tight mb-3">Senate passes landmark infrastructure bill</h3>
+              <p className="text-[14px] text-[#8D969E] leading-relaxed line-clamp-2">Bipartisan agreement reached after weeks of intense negotiations on Capitol Hill.</p>
             </div>
           </div>
 
           {/* Middle Slot (Empty placeholder for docking on desktop) */}
           <div
             ref={middleSlotRef}
-            className="hidden lg:block rounded-[24px] h-[580px] opacity-0"
+            className="hidden lg:block rounded-[24px] h-[400px] opacity-0 lg:col-span-2"
           />
 
           {/* Right Card */}
-          <div className="bg-[#F7F7F7] rounded-[24px] overflow-hidden h-[580px] flex flex-col transition-transform hover:scale-[1.02] duration-300">
+          <div className="bg-[#F7F7F7] rounded-[24px] overflow-hidden h-[400px] flex flex-col transition-transform hover:scale-[1.02] duration-300 lg:col-span-1">
             <div className="h-1/2 overflow-hidden">
-              <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=600&q=80" className="w-full h-full object-cover" alt="News" />
+              <img src="https://images.unsplash.com/photo-1508344928928-7165b67de128?w=600&q=80" className="w-full h-full object-cover" alt="Wall Street" />
             </div>
-            <div className="p-8 flex-1 flex flex-col justify-center">
-              <span className="text-[13px] font-bold text-[#191C1F] uppercase tracking-wider mb-3">Science</span>
-              <h3 className="text-[24px] font-semibold text-[#191C1F] leading-tight mb-4">New breakthrough in renewable energy</h3>
-              <p className="text-[16px] text-[#8D969E] leading-relaxed">Scientists have developed a more efficient solar panel that could revolutionize the industry.</p>
+            <div className="p-6 flex-1 flex flex-col justify-center">
+              <span className="text-[12px] font-bold text-[#191C1F] uppercase tracking-wider mb-2">Economy</span>
+              <h3 className="text-[20px] font-semibold text-[#191C1F] leading-tight mb-3">Federal Reserve announces rate decision</h3>
+              <p className="text-[14px] text-[#8D969E] leading-relaxed line-clamp-2">Markets react as central bank outlines new strategy to combat inflation.</p>
             </div>
           </div>
         </div>
