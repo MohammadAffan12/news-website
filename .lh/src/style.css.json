@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/style.css",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1772049195870,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1772049195870,
+            "name": "Commit-0",
+            "content": "@import \"tailwindcss\";\r\n\r\n@theme {\r\n  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;\r\n  --color-revolut-blue: #4B8BCB;\r\n  --color-revolut-dark: #191C1F;\r\n  --color-revolut-light: #F4F4F4;\r\n  --color-revolut-gray: #8D969E;\r\n  --color-revolut-card: #F7F7F7;\r\n}\r\n\r\nhtml {\r\n  scroll-behavior: smooth;\r\n}\r\n\r\nbody {\r\n  font-family: 'Inter', system-ui, -apple-system, sans-serif;\r\n  -webkit-font-smoothing: antialiased;\r\n  -moz-osx-font-smoothing: grayscale;\r\n  color: #191C1F;\r\n}\r\n\r\n/* Selection */\r\n::selection {\r\n  background: #4B8BCB;\r\n  color: #fff;\r\n}\r\n\r\n/* Revolut easing: cubic-bezier(0.35, 0, 0, 1) */\r\n.r-ease {\r\n  transition-timing-function: cubic-bezier(0.35, 0, 0, 1);\r\n}\r\n\r\n::-webkit-scrollbar {\r\n  width: 6px;\r\n}\r\n::-webkit-scrollbar-track {\r\n  background: transparent;\r\n}\r\n::-webkit-scrollbar-thumb {\r\n  background: #c4c4c4;\r\n  border-radius: 3px;\r\n}\r\n\r\n/* Card hover lift */\r\n.card-lift {\r\n  transition: transform 0.5s cubic-bezier(0.35, 0, 0, 1), box-shadow 0.5s cubic-bezier(0.35, 0, 0, 1);\r\n}\r\n.card-lift:hover {\r\n  transform: translateY(-6px);\r\n  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.08);\r\n}\r\n\r\nimg {\r\n  transition: transform 0.8s cubic-bezier(0.35, 0, 0, 1), opacity 0.4s ease;\r\n}\r\n\r\n.line-clamp-2 {\r\n  display: -webkit-box;\r\n  -webkit-line-clamp: 2;\r\n  -webkit-box-orient: vertical;\r\n  overflow: hidden;\r\n}\r\n.line-clamp-3 {\r\n  display: -webkit-box;\r\n  -webkit-line-clamp: 3;\r\n  -webkit-box-orient: vertical;\r\n  overflow: hidden;\r\n}\r\n\r\n/* Smooth focus rings */\r\ninput:focus, button:focus-visible, a:focus-visible {\r\n  outline: 2px solid #4B8BCB;\r\n  outline-offset: 2px;\r\n}\r\n\r\n/* Prevent layout shift from images */\r\nimg {\r\n  display: block;\r\n  max-width: 100%;\r\n  height: auto;\r\n}\r\n"
+        }
+    ]
+}

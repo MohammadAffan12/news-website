@@ -85,9 +85,10 @@ export default function Hero() {
         const section = sectionRef.current
         const w = section.offsetWidth
         const h = section.offsetHeight
-        const frameW = 446
+        const frameW = Math.min(640, w * 0.5)
+        const frameH = frameW * 9 / 16
         const insetX = (w - frameW) / 2
-        const insetTop = h * 0.15
+        const insetY = (h - frameH) / 2
 
         const scrollTl = gsap.timeline({
           scrollTrigger: {
@@ -100,11 +101,11 @@ export default function Hero() {
           }
         })
 
-        // 1. Clip the full-bleed image into the phone frame area
+        // 1. Clip the full-bleed image into the landscape frame area
         scrollTl.fromTo(bgContainerRef.current,
           { clipPath: 'inset(0px 0px 0px 0px round 0px 0px 0px 0px)' },
           {
-            clipPath: `inset(${insetTop}px ${insetX}px 0px ${insetX}px round 22.5px 22.5px 0px 0px)`,
+            clipPath: `inset(${insetY}px ${insetX}px ${insetY}px ${insetX}px round 18px)`,
             duration: 1,
             ease: 'power2.inOut',
           },
@@ -144,10 +145,12 @@ export default function Hero() {
         ScrollTrigger.addEventListener('refreshInit', () => {
           const newW = section.offsetWidth
           const newH = section.offsetHeight
-          const newInsetX = (newW - frameW) / 2
-          const newInsetTop = newH * 0.15
+          const newFrameW = Math.min(640, newW * 0.5)
+          const newFrameH = newFrameW * 9 / 16
+          const newInsetX = (newW - newFrameW) / 2
+          const newInsetY = (newH - newFrameH) / 2
           gsap.set(bgContainerRef.current, {
-            '--clip-end': `inset(${newInsetTop}px ${newInsetX}px 0px ${newInsetX}px round 22.5px 22.5px 0px 0px)`
+            '--clip-end': `inset(${newInsetY}px ${newInsetX}px ${newInsetY}px ${newInsetX}px round 18px)`
           })
         })
       })
@@ -225,30 +228,26 @@ export default function Hero() {
          ═══════════════════════════════════════════════ */}
       <div
         ref={frameRef}
-        className="absolute left-1/2 top-0 z-[3] hidden lg:block pointer-events-none"
-        style={{ width: '446px', height: '100%', transform: 'translateX(-50%)', opacity: 0 }}
+        className="absolute left-1/2 top-1/2 z-[3] hidden lg:block pointer-events-none"
+        style={{ width: 'min(640px, 50vw)', aspectRatio: '16/9', transform: 'translate(-50%, -50%)', opacity: 0 }}
       >
-        {/* Phone frame: gray border, rounded top, no bottom */}
+        {/* Landscape frame: gray border, fully rounded */}
         <div
-          className="frame-border absolute left-0 top-[15%] w-full"
+          className="frame-border absolute inset-0"
           style={{
-            height: '85%',
-            borderTop: '2.4px solid rgba(201, 201, 205, 0.45)',
-            borderLeft: '2.4px solid rgba(201, 201, 205, 0.45)',
-            borderRight: '2.4px solid rgba(201, 201, 205, 0.45)',
-            borderBottom: 'none',
-            borderRadius: '22.5px 22.5px 0 0',
+            border: '2.4px solid rgba(201, 201, 205, 0.45)',
+            borderRadius: '18px',
           }}
         />
 
         {/* UI: "Breaking" label + big number */}
         <div
           ref={uiLabelRef}
-          className="absolute left-1/2 text-center z-10"
-          style={{ top: '48%', transform: 'translateX(-50%)', opacity: 0 }}
+          className="absolute left-1/2 top-1/2 text-center z-10"
+          style={{ transform: 'translate(-50%, -70%)', opacity: 0 }}
         >
-          <p className="text-white/70 text-[15px] font-medium tracking-wide">Breaking</p>
-          <p className="text-white text-[56px] font-semibold leading-none mt-1.5 drop-shadow-lg">
+          <p className="text-white/70 text-[14px] font-medium tracking-wide">Breaking</p>
+          <p className="text-white text-[42px] font-semibold leading-none mt-1 drop-shadow-lg">
             24/7
           </p>
         </div>
@@ -257,9 +256,9 @@ export default function Hero() {
         <div
           ref={uiPillRef}
           className="absolute left-1/2 z-10"
-          style={{ top: '62%', transform: 'translateX(-50%)', opacity: 0 }}
+          style={{ top: '68%', transform: 'translateX(-50%)', opacity: 0 }}
         >
-          <div className="px-6 py-2 bg-white rounded-full text-[13px] font-medium text-[#191C1F] inline-block shadow-md">
+          <div className="px-5 py-1.5 bg-white rounded-full text-[12px] font-medium text-[#191C1F] inline-block shadow-md">
             Live Feed
           </div>
         </div>
@@ -267,7 +266,7 @@ export default function Hero() {
         {/* UI: Bottom notification card */}
         <div
           ref={notifRef}
-          className="absolute bottom-[5%] left-1/2 w-[320px] bg-white rounded-2xl px-4 py-3.5 shadow-xl z-10"
+          className="absolute bottom-3 left-1/2 w-[280px] bg-white rounded-2xl px-3 py-2.5 shadow-xl z-10"
           style={{ transform: 'translateX(-50%)', opacity: 0 }}
         >
           <div className="flex items-center justify-between">
