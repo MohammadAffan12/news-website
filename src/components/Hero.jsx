@@ -214,9 +214,9 @@ export default function Hero() {
         className="relative lg:absolute z-[10] rounded-[24px] overflow-hidden shadow-2xl mx-6 lg:mx-0 mt-10 lg:mt-0 h-[300px] lg:h-[400px] lg:w-[544px] lg:right-[max(2rem,calc((100vw-1200px)/2+2rem))] lg:top-[calc(50%-200px)]"
       >
         <img
-          src="https://images.unsplash.com/photo-1526470608268-f674ce90ebd4?w=1200&q=90"
-          alt="Breaking News USA"
-          className="w-full h-full object-cover"
+          src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=1200&q=90"
+          alt="Breaking News Newsroom"
+          className="w-full h-full object-cover object-top"
         />
       </div>
 
@@ -231,7 +231,7 @@ export default function Hero() {
           {/* Left Card */}
           <div className="bg-[#F7F7F7] rounded-[24px] overflow-hidden h-[400px] flex flex-col transition-transform hover:scale-[1.02] duration-300 lg:col-span-1">
             <div className="h-1/2 overflow-hidden">
-              <img src="https://images.unsplash.com/photo-1612550761236-e813928f7271?w=600&q=80" className="w-full h-full object-cover" alt="US Capitol" />
+              <img src="https://images.unsplash.com/photo-1541872703-74c5e44368f9?w=600&q=80" className="w-full h-full object-cover" alt="White House" />
             </div>
             <div className="p-6 flex-1 flex flex-col justify-center">
               <span className="text-[12px] font-bold text-[#191C1F] uppercase tracking-wider mb-2">Politics</span>
@@ -249,7 +249,7 @@ export default function Hero() {
           {/* Right Card */}
           <div className="bg-[#F7F7F7] rounded-[24px] overflow-hidden h-[400px] flex flex-col transition-transform hover:scale-[1.02] duration-300 lg:col-span-1">
             <div className="h-1/2 overflow-hidden">
-              <img src="https://images.unsplash.com/photo-1508344928928-7165b67de128?w=600&q=80" className="w-full h-full object-cover" alt="Wall Street" />
+              <img src="https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?w=600&q=80" className="w-full h-full object-cover" alt="Stock Market" />
             </div>
             <div className="p-6 flex-1 flex flex-col justify-center">
               <span className="text-[12px] font-bold text-[#191C1F] uppercase tracking-wider mb-2">Economy</span>
