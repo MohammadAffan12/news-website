@@ -165,7 +165,7 @@ export default function Hero() {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full overflow-hidden bg-[#000000] lg:h-screen lg:min-h-[700px]"
+      className="relative w-full overflow-hidden bg-white lg:h-screen lg:min-h-[700px]"
     >
       {/* ═══════════════════════════════════════════════
           LAYER 1 — Text content (left side)
@@ -177,7 +177,7 @@ export default function Hero() {
         <div className="w-full lg:w-1/2 pointer-events-auto">
           <h1
             ref={textRef}
-            className="text-[52px] sm:text-[64px] md:text-[80px] lg:text-[96px] font-medium text-white leading-[0.95] tracking-[-0.03em] mb-7 max-w-[700px]"
+            className="text-[52px] sm:text-[64px] md:text-[80px] lg:text-[96px] font-medium text-[#191C1F] leading-[0.95] tracking-[-0.03em] mb-7 max-w-[700px]"
             style={{ opacity: 0 }}
           >
             {headline}
@@ -185,7 +185,7 @@ export default function Hero() {
 
           <p
             ref={subRef}
-            className="text-[17px] md:text-[19px] text-white/80 leading-[1.55] max-w-[420px] mb-9"
+            className="text-[17px] md:text-[19px] text-[#191C1F]/70 leading-[1.55] max-w-[420px] mb-9"
             style={{ opacity: 0 }}
           >
             From breaking stories to deep analysis — stay informed
@@ -196,7 +196,7 @@ export default function Hero() {
           <div ref={ctaRef} style={{ opacity: 0 }}>
             <a
               href="#latest"
-              className="inline-flex items-center px-8 py-4 bg-white text-[#000000] text-[16px] font-medium rounded-full hover:bg-gray-200 transition-colors duration-300"
+              className="inline-flex items-center px-8 py-4 bg-[#191C1F] text-white text-[16px] font-medium rounded-full hover:bg-[#333] transition-colors duration-300"
               style={{ transitionTimingFunction: 'cubic-bezier(0.15, 0.5, 0.5, 1)' }}
             >
               Start reading
@@ -214,7 +214,7 @@ export default function Hero() {
         className="relative lg:absolute z-[10] rounded-[24px] overflow-hidden shadow-2xl mx-6 lg:mx-0 mt-10 lg:mt-0 h-[300px] lg:h-[400px] lg:w-[544px] lg:right-[max(2rem,calc((100vw-1200px)/2+2rem))] lg:top-[calc(50%-200px)]"
       >
         <img
-          src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=1200&q=90"
+          src="https://images.unsplash.com/photo-1495020689067-958852a7765e?w=1200&q=90"
           alt="Breaking News Newsroom"
           className="w-full h-full object-cover object-top"
         />
@@ -231,7 +231,7 @@ export default function Hero() {
           {/* Left Card */}
           <div className="bg-[#F7F7F7] rounded-[24px] overflow-hidden h-[400px] flex flex-col transition-transform hover:scale-[1.02] duration-300 lg:col-span-1">
             <div className="h-1/2 overflow-hidden">
-              <img src="https://images.unsplash.com/photo-1541872703-74c5e44368f9?w=600&q=80" className="w-full h-full object-cover" alt="White House" />
+              <img src="https://images.unsplash.com/photo-1501466044931-62695aada8e9?w=600&q=80" className="w-full h-full object-cover" alt="US Capitol" />
             </div>
             <div className="p-6 flex-1 flex flex-col justify-center">
               <span className="text-[12px] font-bold text-[#191C1F] uppercase tracking-wider mb-2">Politics</span>
