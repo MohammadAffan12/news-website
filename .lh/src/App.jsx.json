@@ -1,0 +1,26 @@
+{
+    "sourceFile": "src/App.jsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 2,
+            "patches": [
+                {
+                    "date": 1772229965368,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1772229997326,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,19 @@\n import { useEffect } from 'react'\r\n import gsap from 'gsap'\r\n import { ScrollTrigger } from 'gsap/ScrollTrigger'\r\n+import Navbar from './components/Navbar'\r\n import Hero from './components/Hero'\r\n+import BreakingTicker from './components/BreakingTicker'\r\n+import FeaturesSection from './components/FeaturesSection'\r\n+import LatestNews from './components/LatestNews'\r\n+import FeaturedVideo from './components/FeaturedVideo'\r\n+import TrustSection from './components/TrustSection'\r\n+import AppPromo from './components/AppPromo'\r\n+import ImageGallery from './components/ImageGallery'\r\n+import CategorySection from './components/CategorySection'\r\n+import Newsletter from './components/Newsletter'\r\n+import Footer from './components/Footer'\r\n \r\n gsap.registerPlugin(ScrollTrigger)\r\n \r\n export default function App() {\r\n@@ -12,8 +23,19 @@\n   }, [])\r\n \r\n   return (\r\n     <div className=\"overflow-x-hidden\">\r\n+      <Navbar />\r\n       <Hero />\r\n+      <BreakingTicker />\r\n+      <FeaturesSection />\r\n+      <LatestNews />\r\n+      <FeaturedVideo />\r\n+      <TrustSection />\r\n+      <AppPromo />\r\n+      <ImageGallery />\r\n+      <CategorySection />\r\n+      <Newsletter />\r\n+      <Footer />\r\n     </div>\r\n   )\r\n }\r\n"
+                },
+                {
+                    "date": 1772230136909,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,19 +1,8 @@\n import { useEffect } from 'react'\r\n import gsap from 'gsap'\r\n import { ScrollTrigger } from 'gsap/ScrollTrigger'\r\n-import Navbar from './components/Navbar'\r\n import Hero from './components/Hero'\r\n-import BreakingTicker from './components/BreakingTicker'\r\n-import FeaturesSection from './components/FeaturesSection'\r\n-import LatestNews from './components/LatestNews'\r\n-import FeaturedVideo from './components/FeaturedVideo'\r\n-import TrustSection from './components/TrustSection'\r\n-import AppPromo from './components/AppPromo'\r\n-import ImageGallery from './components/ImageGallery'\r\n-import CategorySection from './components/CategorySection'\r\n-import Newsletter from './components/Newsletter'\r\n-import Footer from './components/Footer'\r\n \r\n gsap.registerPlugin(ScrollTrigger)\r\n \r\n export default function App() {\r\n@@ -23,19 +12,8 @@\n   }, [])\r\n \r\n   return (\r\n     <div className=\"overflow-x-hidden\">\r\n-      <Navbar />\r\n       <Hero />\r\n-      <BreakingTicker />\r\n-      <FeaturesSection />\r\n-      <LatestNews />\r\n-      <FeaturedVideo />\r\n-      <TrustSection />\r\n-      <AppPromo />\r\n-      <ImageGallery />\r\n-      <CategorySection />\r\n-      <Newsletter />\r\n-      <Footer />\r\n     </div>\r\n   )\r\n }\r\n"
+                }
+            ],
+            "date": 1772229965368,
+            "name": "Commit-0",
+            "content": "import { useEffect } from 'react'\r\nimport gsap from 'gsap'\r\nimport { ScrollTrigger } from 'gsap/ScrollTrigger'\r\nimport Hero from './components/Hero'\r\n\r\ngsap.registerPlugin(ScrollTrigger)\r\n\r\nexport default function App() {\r\n  useEffect(() => {\r\n    const timer = setTimeout(() => ScrollTrigger.refresh(), 500)\r\n    return () => { clearTimeout(timer); ScrollTrigger.getAll().forEach(t => t.kill()) }\r\n  }, [])\r\n\r\n  return (\r\n    <div className=\"overflow-x-hidden\">\r\n      <Hero />\r\n    </div>\r\n  )\r\n}\r\n"
+        }
+    ]
+}
